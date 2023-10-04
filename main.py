@@ -57,7 +57,7 @@ start = st.session_state["time"]
 
 #st.write(start_time)
 with st.form('Form', clear_on_submit=True):
-    st.info(f"{soru_sayi}.Soru :    **{sayi1} / {sayi2}** kaçtır ?")
+    st.info(f"{soru_sayi}.Soru :    **{sayi1} ➗ {sayi2}** kaçtır ?")
    
     yanit = st.number_input('Bölüm kaçtır?', min_value=1, step=None, value=None)
     #yanit = st.number_input('Bölüm kaçtır',   step=1, value=int)
@@ -78,7 +78,7 @@ if submit:
         #st.write(elapsed_time)
         #st.info("Doğru! Bu soruyu {:.0f} saniyede cevapladın.".format(elapsed_time))
         st.balloons()
-        st.success(f"{yanit} ...  Doğru cevap, tebrikler...**{yanit} x {sayi2} = {yanit * sayi2}** ", icon="✅")
+        st.success(f"{yanit} ...  Doğru cevap, tebrikler...**{sayi2} x {yanit} = {yanit * sayi2}** ", icon="✅")
         st.session_state["dogru_cevap_sayisi"] += 1
         end = timer()
         elapsed_time = end - start
