@@ -10,7 +10,7 @@ st.set_page_config(
     layout="centered",
     initial_sidebar_state="auto",
 )
-st.title("Bölme İşlemi App")
+st.title("Bölme İşlemi App➗😎")
 
 # initializing with a random number
 if "rn1" not in st.session_state:
