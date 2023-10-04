@@ -78,7 +78,7 @@ if submit:
         #st.write(elapsed_time)
         #st.info("Doğru! Bu soruyu {:.0f} saniyede cevapladın.".format(elapsed_time))
         st.balloons()
-        st.success(f"{yanit} ...  Doğru cevap, tebrikler...", icon="✅")
+        st.success(f"{yanit} ...  Doğru cevap, tebrikler...**{yanit} x {sayi2} = {yanit * sayi2}** ", icon="✅")
         st.session_state["dogru_cevap_sayisi"] += 1
         end = timer()
         elapsed_time = end - start
