@@ -12,7 +12,16 @@ st.set_page_config(
 )
 st.title("Bölme İşlemi App➗😎")
 
+def disable_text_input():
+    st.session_state.disabled = True
+
+disabled = st.session_state.get("disabled", False)
+
+
 # initializing with a random number
+if 'correct' not in st.session_state:
+    st.session_state.correct = False
+
 if "rn1" not in st.session_state:
     st.session_state["rn1"] = random.randint(10,100)
 
@@ -28,6 +37,8 @@ def change_number():
     st.session_state["rn2"] = random.randint(1,10)
     st.session_state["giris"] = st.session_state["giris"] +1
     st.session_state["time"] = timer()
+    st.session_state.correct = False
+
     return
 
 if "dogru_cevap_sayisi" not in st.session_state:
@@ -39,7 +50,6 @@ if "yanlis_cevap_sayisi" not in st.session_state:
 
 
 ## button to generate a new random number
-st.button("Yeni Soru Getir", on_click=change_number)
 sayi1 = st.session_state["rn1"]
 sayi2 = st.session_state["rn2"] 
 soru_sayi = st.session_state["giris"]
@@ -56,12 +66,14 @@ start = st.session_state["time"]
 # your code...
 
 #st.write(start_time)
-with st.form('Form', clear_on_submit=True):
-    st.info(f"{soru_sayi}.Soru :    **{sayi1} ➗ {sayi2}** kaçtır ?")
-   
-    yanit = st.number_input('Bölüm kaçtır?', min_value=1, step=None, value=None)
-    #yanit = st.number_input('Bölüm kaçtır',   step=1, value=int)
-    submit = st.form_submit_button('Yanıtı Gönder')
+if not st.session_state.correct:
+
+    with st.form('Form', clear_on_submit=True):
+        st.info(f"{soru_sayi}.Soru :    **{sayi1} ➗ {sayi2}** kaçtır ?")
+    
+        yanit = st.number_input('Bölüm kaçtır?', min_value=1, step=None, value=None)
+        #yanit = st.number_input('Bölüm kaçtır',   step=1, value=int)
+        submit = st.form_submit_button('Yanıtı Gönder')
 
 
 
@@ -84,6 +96,12 @@ if submit:
         elapsed_time = end - start
         st.toast(f"Geçen süre: {elapsed_time:.0f} sn", icon='🎉')
         st.write(f"Geçen süre: {elapsed_time:.0f} sn") # time in seconds
+        st.session_state.correct = True
+
+        st.button("Yeni Soru Getir", on_click=change_number)
+        
+
+        #change_number()
 
     else:
         st.error(f"{yanit} ...  Yanlış cevap, tekrar deneyiniz.", icon="🚨")
@@ -92,3 +110,10 @@ if submit:
 
     st.write('Doğru:', st.session_state["dogru_cevap_sayisi"])
     st.write('Yanlış:', st.session_state["yanlis_cevap_sayisi"])
+
+
+
+
+
+
+
